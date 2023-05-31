@@ -1,6 +1,7 @@
 ﻿using Server.Infrastructure;
 using Server.Interfaces;
 using Server.Middlewares;
+using Server.Models;
 
 namespace Server;
 
@@ -26,8 +27,21 @@ class Program
     {
         builder.Use(new HttpLog());
         // builder.Use(new Http404());
+
+        Routing routes = new Routing();
+        RegisterRoutes(routes);
+        builder.Use(routes);
+        
         builder.Use(new StaticFile());
+        builder.Use(new Http404());
         
         builder.UnhandleException(new Http500());
+    }
+
+    static void RegisterRoutes(Routing routes)
+    {
+        routes.MapRoute(name:"Default",
+            url:"{controller}/{action}/{id}",
+            defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional});
     }
 }
