@@ -22,6 +22,7 @@ public class RouteEntry
             .ToArray();
     }
 
+    // TODO
     public RouteValueDictionary Match(HttpListenerRequest request)
     {
         var urlPath = request.Url.LocalPath.TrimStart('/');
@@ -36,7 +37,6 @@ public class RouteEntry
 
         if (routeValues.Values.Contains(UrlParameter.Missing))
             return null;
-
         return routeValues;
     }
 }

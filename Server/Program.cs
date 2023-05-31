@@ -27,7 +27,6 @@ class Program
     {
         builder.Use(new HttpLog());
         // builder.Use(new Http404());
-
         Routing routes = new Routing();
         RegisterRoutes(routes);
         builder.Use(routes);
@@ -40,8 +39,9 @@ class Program
 
     static void RegisterRoutes(Routing routes)
     {
-        routes.MapRoute(name:"Default",
-            url:"{controller}/{action}/{id}",
-            defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional});
+        routes.MapRoute(name:"StaticFile",
+            url:"{controller}/{action}/{path}",
+            defaults: new {controller = "StaticFile", action = "Index", path = UrlParameter.Optional}
+        );
     }
 }

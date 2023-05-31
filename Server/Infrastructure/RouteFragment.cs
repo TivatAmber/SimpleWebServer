@@ -14,6 +14,7 @@ public class RouteFragment
         foreach (Match match in re.Matches(part))
         {
             string paramName = match.Groups[1].Value;
+            // Console.WriteLine(paramName);
             if (defaultValues.ContainsKey(paramName))
                 _parameters[paramName] = defaultValues[paramName];
             else
@@ -25,6 +26,7 @@ public class RouteFragment
 
     private readonly string _part;
 
+    public string Part => _part;
     public RouteValueDictionary Parameters => _parameters;
 
     public bool Match(string urlPart, RouteValueDictionary routeValues)
@@ -33,7 +35,7 @@ public class RouteFragment
         foreach (var kv in _parameters)
         {
             string origin = "{" + kv.Key + "}";
-            string replaceWith = string.Format("(?<{0}>[a-zA-Z0-9_]+)", kv.Key);
+            string replaceWith = string.Format("(?<{0}>[a-zA-Z0-9_.]+)", kv.Key);
             if (kv.Value != UrlParameter.Missing)
                 replaceWith += "?";
             pattern = pattern.Replace(origin, replaceWith);

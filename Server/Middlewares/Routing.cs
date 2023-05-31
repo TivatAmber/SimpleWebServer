@@ -29,8 +29,8 @@ public class Routing : IMiddleware
             {
                 IController controller = CreateController(routeValues);
                 MethodInfo method = GetActionMethod(controller, routeValues);
-                string result = GetAcionResult(controller, method, routeValues);
-                context.Response.Status(200, result);
+                byte[] result = GetAcionResult(controller, method, routeValues);
+                context.Response.Status(200, "OK",result);
                 return MiddlewareResult.Processed;
             }
         }
@@ -65,7 +65,7 @@ public class Routing : IMiddleware
         return method;
     }
 
-    private string GetAcionResult(IController controller, MethodInfo method, RouteValueDictionary routeValues)
+    private byte[] GetAcionResult(IController controller, MethodInfo method, RouteValueDictionary routeValues)
     {
         ParameterInfo[] methodParams = method.GetParameters();
         object[] paramValues = new object[methodParams.Length];
@@ -76,7 +76,7 @@ public class Routing : IMiddleware
             paramValues[i] = paramValue;
         }
 
-        string result = (string)method.Invoke(controller, paramValues);
+        byte[] result = (byte[])method.Invoke(controller, paramValues);
         return result;
     }
 }
