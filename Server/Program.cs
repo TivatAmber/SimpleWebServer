@@ -19,8 +19,14 @@ class Program
         server.Bind(ServerUrl);
         server.Start();
 
-        Console.WriteLine($"Web Server started at {ServerUrl}, Press any key to exit.");
-        Console.ReadKey();
+        Console.WriteLine($"Web Server started at {ServerUrl}, input \"exit\" to exit.");
+        while (true)
+        {
+            if (Console.ReadLine() == "exit")
+            {
+                break;
+            }
+        }
     }
 
     static void RegisterMiddlewares(IWebServerBuilder builder)
@@ -37,10 +43,11 @@ class Program
         builder.UnhandleException(new Http500());
     }
 
+    // TODO Upload a file.
     static void RegisterRoutes(Routing routes)
     {
         routes.MapRoute(name:"StaticFile",
-            url:"{controller}/{action}/{path}",
+            url:"FileSystem/{controller}/{action}/{path}",
             defaults: new {controller = "StaticFile", action = "Index", path = UrlParameter.Optional}
         );
     }

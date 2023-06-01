@@ -22,8 +22,8 @@ public class StaticFile : IMiddleware
             response.StatusCode = 200;
             response.OutputStream.Write(data, 0, data.Length);
             response.OutputStream.Close();
+            return MiddlewareResult.Processed;
         }
-        
-        return MiddlewareResult.Processed;
+        return MiddlewareResult.Continue;
     }
 }

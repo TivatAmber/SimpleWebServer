@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Reflection;
+using System.Text;
 using Server.Infrastructure;
 using Server.Interfaces;
 using Server.Models;
@@ -30,7 +31,7 @@ public class Routing : IMiddleware
                 IController controller = CreateController(routeValues);
                 MethodInfo method = GetActionMethod(controller, routeValues);
                 byte[] result = GetAcionResult(controller, method, routeValues);
-                context.Response.Status(200, "OK",result);
+                context.Response.Status(200, "OK", result);
                 return MiddlewareResult.Processed;
             }
         }

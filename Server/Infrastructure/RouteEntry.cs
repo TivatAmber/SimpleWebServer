@@ -21,8 +21,7 @@ public class RouteEntry
             .Select(x => new RouteFragment(x, defaultValues))
             .ToArray();
     }
-
-    // TODO
+    
     public RouteValueDictionary Match(HttpListenerRequest request)
     {
         var urlPath = request.Url.LocalPath.TrimStart('/');

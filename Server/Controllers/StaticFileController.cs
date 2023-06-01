@@ -17,6 +17,11 @@ public class StaticFileController : Controller
 
         return Encoding.UTF8.GetBytes("Not Found");
     }
+
+    public byte[] Upload()
+    {
+        return Encoding.UTF8.GetBytes("Successfully Upload");
+    }
     public byte[] Index()
     {
         // return "Index Pages";
